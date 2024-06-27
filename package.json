@@ -1,0 +1,23 @@
+{
+	"name": "webcrawler",
+	"version": "1.0.0",
+	"description": "JS Based Adblock crawler for YT",
+	"main": "crawler.js",
+	"scripts": {
+		"start": "node crawler.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://research-git.uiowa.edu/anshusahu/cs3640-a5.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"abp-filter-parser": "^0.2.0",
+		"chromedriver": "^126.0.4",
+		"geckodriver": "^4.4.1",
+		"nodemon": "^3.1.4",
+		"selenium-webdriver": "^4.22.0"
+	}
+}
