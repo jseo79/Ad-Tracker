@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const { Builder } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 
@@ -8,6 +9,11 @@ const trackingScript = parseEasylist();
 const urls = JSON.parse(fs.readFileSync('data/urls.json'));
 const urlsToTest = urls.urlsToTest;
 
+const resultsDir = path.join(__dirname, '../results');
+if (!fs.existsSync(resultsDir)) {
+	fs.mkdirSync(resultsDir);
+}
+
 // Extension location for AdBlockPlus
 let adBlockerExtensionPath =
 	'--load-extension=/Users/josephseo/Repos/Ad-Tracker/AdBlockPlus';
@@ -16,6 +22,7 @@ let adBlockerExtensionPath =
 async function getCookiesWithoutAdBlockPlus() {
 	let driver = await new Builder().forBrowser('chrome').build();
 	let cookieCounter = 0;
+	let cookiesList = [];
 
 	try {
 		for (let url of urlsToTest) {
@@ -23,8 +30,12 @@ async function getCookiesWithoutAdBlockPlus() {
 			await driver.sleep(1000);
 			let cookies = await driver.manage().getCookies();
 			cookieCounter += cookies.length;
-			// cookies.forEach((cookie) => console.log(cookie.name));
+			cookies.forEach((cookie) => cookiesList.push(cookie.name));
 		}
+		fs.writeFileSync(
+			path.join(resultsDir, 'cookies_without_adblock.txt'),
+			`Number of cookies: ${cookieCounter}\n${cookiesList.join('\n')}`
+		);
 		console.log('Number of cookies without AdBlockPlus:', cookieCounter);
 	} finally {
 		await driver.quit();
@@ -41,6 +52,7 @@ async function getCookiesWithAdBlockPlus() {
 		.forBrowser('chrome')
 		.build();
 	let cookieCounter = 0;
+	let cookiesList = [];
 
 	try {
 		await driver.sleep(1000);
@@ -49,8 +61,12 @@ async function getCookiesWithAdBlockPlus() {
 			await driver.sleep(1000);
 			let cookies = await driver.manage().getCookies();
 			cookieCounter += cookies.length;
-			// cookies.forEach((cookie) => console.log(cookie.name));
+			cookies.forEach((cookie) => cookiesList.push(cookie.name));
 		}
+		fs.writeFileSync(
+			path.join(resultsDir, 'cookies_with_adblock.txt'),
+			`Number of cookies: ${cookieCounter}\n${cookiesList.join('\n')}`
+		);
 		console.log('Number of cookies with AdBlockPlus:', cookieCounter);
 	} finally {
 		await driver.quit();
@@ -61,6 +77,7 @@ async function getCookiesWithAdBlockPlus() {
 async function getScriptsWithoutAdBlockPlus() {
 	let driver = await new Builder().forBrowser('chrome').build();
 	let scriptCounter = 0;
+	let scriptsList = [];
 
 	try {
 		for (let url of urlsToTest) {
@@ -70,11 +87,17 @@ async function getScriptsWithoutAdBlockPlus() {
 			for (let script of trackingScript) {
 				let regex = new RegExp(script);
 				if (regex.test(pageSource)) {
-					// console.log(script);
+					scriptsList.push(script);
 					scriptCounter++;
 				}
 			}
 		}
+		fs.writeFileSync(
+			path.join(resultsDir, 'scripts_without_adblock.txt'),
+			`Number of tracking scripts: ${scriptCounter}\n${scriptsList.join(
+				'\n'
+			)}`
+		);
 		console.log(
 			'Number of tracking scripts found without AdBlockPlus:',
 			scriptCounter
@@ -94,6 +117,7 @@ async function getScriptsWithAdBlockPlus() {
 		.forBrowser('chrome')
 		.build();
 	let scriptCounter = 0;
+	let scriptsList = [];
 
 	try {
 		await driver.sleep(1000);
@@ -104,11 +128,17 @@ async function getScriptsWithAdBlockPlus() {
 			for (let script of trackingScript) {
 				let regex = new RegExp(script);
 				if (regex.test(pageSource)) {
-					// console.log(script);
+					scriptsList.push(script);
 					scriptCounter++;
 				}
 			}
 		}
+		fs.writeFileSync(
+			path.join(resultsDir, 'scripts_with_adblock.txt'),
+			`Number of tracking scripts: ${scriptCounter}\n${scriptsList.join(
+				'\n'
+			)}`
+		);
 		console.log(
 			'Number of tracking scripts found with AdBlockPlus:',
 			scriptCounter
