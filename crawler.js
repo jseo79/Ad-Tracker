@@ -40,8 +40,7 @@ let urlToTest = [
 ];
 
 // extension location for AdBlockPlus
-let abp =
-	'--load-extension=/Users/anshumansahu/AquaProjects/cs3640-a5/AdBlockPlus';
+let abp = '--load-extension=/Users/josephseo/Repos/Ad-Tracker/AdBlockPlus';
 
 // async function to count the number of cookies with AdBlockPlus disabled
 async function getCookiesWithoutAdBlockPlus() {
