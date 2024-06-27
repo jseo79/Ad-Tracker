@@ -18,7 +18,6 @@ if (!fs.existsSync(resultsDir)) {
 let adBlockerExtensionPath =
 	'--load-extension=/Users/josephseo/Repos/Ad-Tracker/AdBlockPlus';
 
-// Function to count cookies with AdBlockPlus disabled
 async function getCookiesWithoutAdBlockPlus() {
 	let driver = await new Builder().forBrowser('chrome').build();
 	let cookieCounter = 0;
@@ -42,7 +41,6 @@ async function getCookiesWithoutAdBlockPlus() {
 	}
 }
 
-// Function to count cookies with AdBlockPlus enabled
 async function getCookiesWithAdBlockPlus() {
 	let options = new chrome.Options();
 	options.addArguments(adBlockerExtensionPath);
@@ -73,7 +71,6 @@ async function getCookiesWithAdBlockPlus() {
 	}
 }
 
-// Function to track scripts with AdBlockPlus disabled
 async function getScriptsWithoutAdBlockPlus() {
 	let driver = await new Builder().forBrowser('chrome').build();
 	let scriptCounter = 0;
@@ -107,7 +104,6 @@ async function getScriptsWithoutAdBlockPlus() {
 	}
 }
 
-// Function to track scripts with AdBlockPlus enabled
 async function getScriptsWithAdBlockPlus() {
 	let options = new chrome.Options();
 	options.addArguments(adBlockerExtensionPath);
@@ -148,7 +144,6 @@ async function getScriptsWithAdBlockPlus() {
 	}
 }
 
-// Helper function to introduce delays
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function main() {
