@@ -12,13 +12,13 @@ Install Latest NodeJS and Google Chrome versions
 5. Run `npm install` to install all required packages/modules
 6. Run `npm start` to run the program
 
-   
+## Results
+The current method of displaying results is through the results directory which is created after the program is finished running. In this folder, you will find the number and names of the cookies and scripts that are found with and without the ad blocker extension. Additionally, the number of cookies and scripts are logged to the console.
+
+## Testing Different Ad Blockers
 I tested AdBlock Plus, but you can test other ad blockers by doing the following -
 
 1. Installing a different ad blocker chrome extension to their local project directory
-2. Editing the adBlockerExtensionPath variable in src/crawler.js to correspond to their new ad blocker
+2. Editing the adBlockerExtensionPath variable in src/crawler.js to correspond to the new ad blocker
 
 Websites you want to test may also be changed by modifying urlsToTest in data/urls.json
-
-## Results
-The current method of displaying results is through the results directory which is created after the program is finished running. In this folder, you will find the number and names of the cookies and scripts that are found with and without the ad blocker extension. Additionally, the number of cookies and scripts are logged to the console.
