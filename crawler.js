@@ -1,19 +1,8 @@
 const { Builder } = require('selenium-webdriver');
 let chrome = require('selenium-webdriver/chrome');
+const parser = require('./parser');
 
-// Parser function to parse the filter list
-function parseEasyList() {
-	const fs = require('fs');
-	let text = fs.readFileSync('easylist.txt');
-	let arr = text.toString().split('\n');
-	for (let i = 0; i < arr.length; i++) {
-		arr[i] = arr[i].slice(2).slice(0, -1);
-	}
-	return arr;
-}
-
-// variable to store tracker list
-const trackingScript = parseEasyList();
+const trackingScript = parser();
 
 // list of website urls to test for cookies and tracking scripts
 let urlToTest = [

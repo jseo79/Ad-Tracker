@@ -1,5 +1,6 @@
-function parseEasylist() {
-	const fs = require('fs');
+const fs = require('fs');
+
+function parser() {
 	let text = fs.readFileSync('easylist.txt');
 	let arr = text.toString().split('\n');
 	for (let i = 0; i < arr.length; i++) {
@@ -8,8 +9,4 @@ function parseEasylist() {
 	return arr;
 }
 
-async function main() {
-	parseEasylist();
-}
-
-main();
+module.exports = parser;
