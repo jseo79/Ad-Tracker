@@ -13,7 +13,9 @@ Install Latest NodeJS and Google Chrome versions
 6. Run `npm start` to run the program
 
    
-I tested AdBlock Plus but other users may test other ad blockers by doing the following -
+I tested AdBlock Plus, but users may test other ad blockers by doing the following -
 
 1. Installing a different ad blocker chrome extension to their local project directory
 2. Editing the adBlockerExtensionPath variable in src/crawler.js to correspond to their new ad blocker
+
+Websites you want to test may also be changed by modifying the urlsToTest in data/urls.json
