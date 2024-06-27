@@ -21,4 +21,4 @@ I tested AdBlock Plus, but users may test other ad blockers by doing the followi
 Websites you want to test may also be changed by modifying urlsToTest in data/urls.json
 
 ## Results
-The current method of displaying results (number of cookies and scripts) is through the console. The names of the actual cookies and scripts will not be displayed due to clutter. However, you may uncomment out lines 25, 51, 72, and 106 in src/crawler.js if you wish to see this information
+The current method of displaying results (number of cookies and scripts) is through the console. The names of the actual cookies and scripts will not be displayed due to clutter. However, you may uncomment out lines 25, 51, 72, and 106 in src/crawler.js if you wish to see this information.
