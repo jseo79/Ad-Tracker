@@ -9,8 +9,8 @@ Install Latest NodeJS and Google Chrome versions
 1. Clone the Repo
 2. Open in your preferred IDE
 3. Open terminal in the root folder of the project
-4. Run 'npm install' to install all required packages/modules
-5. Run 'npm start' to run the program
+4. Run `npm install` to install all required packages/modules
+5. Run `npm start` to run the program
 
    
 I tested AdBlock Plus but other users may test other ad blockers by doing the following -
