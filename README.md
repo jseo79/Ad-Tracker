@@ -18,7 +18,7 @@ The current method of displaying results is through the results directory which 
 ## Testing Different Ad Blockers
 I tested AdBlock Plus, but you can test other ad blockers by doing the following -
 
-1. Installing a different ad blocker chrome extension to their local project directory
+1. Installing a different ad blocker chrome extension to your local project directory
 2. Editing the adBlockerExtensionPath variable in src/crawler.js to correspond to the new ad blocker
 
 Websites you want to test may also be changed by modifying urlsToTest in data/urls.json
