@@ -9,7 +9,7 @@ const urls = JSON.parse(fs.readFileSync('data/urls.json'));
 const urlsToTest = urls.urlsToTest;
 
 // Extension location for AdBlockPlus
-let adBlockPlusPath =
+let adBlockerExtensionPath =
 	'--load-extension=/Users/josephseo/Repos/Ad-Tracker/AdBlockPlus';
 
 // Function to count cookies with AdBlockPlus disabled
@@ -23,7 +23,7 @@ async function getCookiesWithoutAdBlockPlus() {
 			await driver.sleep(1000);
 			let cookies = await driver.manage().getCookies();
 			cookieCounter += cookies.length;
-			// cookies.forEach((cookie) => console.log(`- ${cookie.name}`));
+			// cookies.forEach((cookie) => console.log(cookie.name));
 		}
 		console.log('Number of cookies without AdBlockPlus:', cookieCounter);
 	} finally {
@@ -34,7 +34,7 @@ async function getCookiesWithoutAdBlockPlus() {
 // Function to count cookies with AdBlockPlus enabled
 async function getCookiesWithAdBlockPlus() {
 	let options = new chrome.Options();
-	options.addArguments(adBlockPlusPath);
+	options.addArguments(adBlockerExtensionPath);
 
 	let driver = await new Builder()
 		.setChromeOptions(options)
@@ -49,6 +49,7 @@ async function getCookiesWithAdBlockPlus() {
 			await driver.sleep(1000);
 			let cookies = await driver.manage().getCookies();
 			cookieCounter += cookies.length;
+			// cookies.forEach((cookie) => console.log(cookie.name));
 		}
 		console.log('Number of cookies with AdBlockPlus:', cookieCounter);
 	} finally {
@@ -69,6 +70,7 @@ async function getScriptsWithoutAdBlockPlus() {
 			for (let script of trackingScript) {
 				let regex = new RegExp(script);
 				if (regex.test(pageSource)) {
+					// console.log(script);
 					scriptCounter++;
 				}
 			}
@@ -85,7 +87,7 @@ async function getScriptsWithoutAdBlockPlus() {
 // Function to track scripts with AdBlockPlus enabled
 async function getScriptsWithAdBlockPlus() {
 	let options = new chrome.Options();
-	options.addArguments(adBlockPlusPath);
+	options.addArguments(adBlockerExtensionPath);
 
 	let driver = await new Builder()
 		.setChromeOptions(options)
@@ -102,6 +104,7 @@ async function getScriptsWithAdBlockPlus() {
 			for (let script of trackingScript) {
 				let regex = new RegExp(script);
 				if (regex.test(pageSource)) {
+					// console.log(script);
 					scriptCounter++;
 				}
 			}
