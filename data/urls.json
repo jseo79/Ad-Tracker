@@ -2,10 +2,6 @@
 	"urlsToTest": [
 		"https://www.cnn.com",
 		"https://www.youtube.com",
-		"https://www.selenium.dev",
-		"https://www.google.com",
-		"https://www.tesla.com",
-		"https://www.amazon.com",
 		"https://www.espn.com",
 		"https://www.stockx.com"
 	]

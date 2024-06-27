@@ -1,8 +1,8 @@
 const fs = require('fs');
 const { Builder } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
-const parseEasylist = require('./parser');
 
+const parseEasylist = require('./parser');
 const trackingScript = parseEasylist();
 
 const urls = JSON.parse(fs.readFileSync('data/urls.json'));
@@ -43,7 +43,7 @@ async function getCookiesWithAdBlockPlus() {
 	let cookieCounter = 0;
 
 	try {
-		await driver.sleep(5000);
+		await driver.sleep(1000);
 		for (let url of urlsToTest) {
 			await driver.get(url);
 			await driver.sleep(1000);
@@ -57,7 +57,7 @@ async function getCookiesWithAdBlockPlus() {
 }
 
 // Function to track scripts with AdBlockPlus disabled
-async function trackScriptsWithoutAdBlockPlus() {
+async function getScriptsWithoutAdBlockPlus() {
 	let driver = await new Builder().forBrowser('chrome').build();
 	let scriptCounter = 0;
 
@@ -83,7 +83,7 @@ async function trackScriptsWithoutAdBlockPlus() {
 }
 
 // Function to track scripts with AdBlockPlus enabled
-async function trackScriptsWithAdBlockPlus() {
+async function getScriptsWithAdBlockPlus() {
 	let options = new chrome.Options();
 	options.addArguments(adBlockPlusPath);
 
@@ -94,7 +94,7 @@ async function trackScriptsWithAdBlockPlus() {
 	let scriptCounter = 0;
 
 	try {
-		await driver.sleep(5000);
+		await driver.sleep(1000);
 		for (let url of urlsToTest) {
 			await driver.get(url);
 			await driver.sleep(1000);
@@ -120,12 +120,12 @@ const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 async function main() {
 	await getCookiesWithoutAdBlockPlus();
-	await sleep(5000);
+	await sleep(1000);
 	await getCookiesWithAdBlockPlus();
-	await sleep(5000);
-	await trackScriptsWithoutAdBlockPlus();
-	await sleep(5000);
-	await trackScriptsWithAdBlockPlus();
+	await sleep(1000);
+	await getScriptsWithoutAdBlockPlus();
+	await sleep(1000);
+	await getScriptsWithAdBlockPlus();
 }
 
 main()
