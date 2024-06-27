@@ -1,20 +1,12 @@
+const fs = require('fs');
 const { Builder } = require('selenium-webdriver');
-let chrome = require('selenium-webdriver/chrome');
+const chrome = require('selenium-webdriver/chrome');
 const parseEasylist = require('./parser');
 
 const trackingScript = parseEasylist();
 
-// List of website URLs to test for cookies and tracking scripts
-let urlsToTest = [
-	'https://www.cnn.com',
-	'https://www.youtube.com',
-	'https://www.selenium.dev',
-	'https://www.google.com',
-	'https://www.tesla.com',
-	'https://www.amazon.com',
-	'https://www.espn.com',
-	'https://www.stockx.com',
-];
+const urls = JSON.parse(fs.readFileSync('data/urls.json'));
+const urlsToTest = urls.urlsToTest;
 
 // Extension location for AdBlockPlus
 let adBlockPlusPath =
