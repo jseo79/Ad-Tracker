@@ -31,6 +31,7 @@ async function getCookiesWithoutAdBlockPlus() {
 			await driver.sleep(1000);
 			let cookies = await driver.manage().getCookies();
 			cookieCounter += cookies.length;
+			// cookies.forEach((cookie) => console.log(`- ${cookie.name}`));
 		}
 		console.log('Number of cookies without AdBlockPlus:', cookieCounter);
 	} finally {

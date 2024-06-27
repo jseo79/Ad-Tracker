@@ -4,7 +4,7 @@
 	"description": "JS Based Adblock crawler for YT",
 	"main": "crawler.js",
 	"scripts": {
-		"start": "node crawler.js",
+		"start": "node src/crawler.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
