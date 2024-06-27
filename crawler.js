@@ -1,20 +1,8 @@
-const { By, Key, Builder } = require('selenium-webdriver');
+const { Builder } = require('selenium-webdriver');
 let chrome = require('selenium-webdriver/chrome');
 
-async function crawler() {
-	let searchStr = 'Selenium Test';
-	let driver = await new Builder().forBrowser('chrome').build();
-	await driver.get('https://www.cnn.com');
-
-	// Find the search box(search QUERY(q)) and enter the search string
-	//await driver.findElement(By.name("q")).sendKeys("webdriver",Key.RETURN);
-	let title = await driver.getTitle();
-	console.log('Title is:', title);
-	await driver.quit();
-}
-
 // Parser function to parse the filter list
-function parseEasylist() {
+function parseEasyList() {
 	const fs = require('fs');
 	let text = fs.readFileSync('easylist.txt');
 	let arr = text.toString().split('\n');
@@ -25,7 +13,7 @@ function parseEasylist() {
 }
 
 // variable to store tracker list
-const trackingScript = parseEasylist();
+const trackingScript = parseEasyList();
 
 // list of website urls to test for cookies and tracking scripts
 let urlToTest = [
@@ -48,7 +36,7 @@ async function getCookiesWithoutAdBlockPlus() {
 	let ckCounter = 0;
 	for (let i = 0; i < urlToTest.length; i++) {
 		await driver.get(urlToTest[i]);
-		await driver.sleep(1000); // wait for the page to load
+		await driver.sleep(1000);
 		let cookies = await driver.manage().getCookies();
 		ckCounter += cookies.length;
 		//console.log(cookies);
@@ -65,20 +53,20 @@ async function getCookiesWithoutAdBlockPlus() {
 async function getCookiesWithAdBlockPlus() {
 	let options = new chrome.Options();
 	options.addArguments(abp);
+
 	let driver = await new Builder()
 		.setChromeOptions(options)
 		.forBrowser('chrome')
 		.build();
+
 	let ckCounter2 = 0;
-	// wait for the extension to load before navigating to the website
+
 	await driver.sleep(5000);
 	for (let i = 0; i < urlToTest.length; i++) {
 		await driver.get(urlToTest[i]);
-		await driver.sleep(1000); // wait for the page to load
+		await driver.sleep(1000);
 		let cookies = await driver.manage().getCookies();
 		ckCounter2 += cookies.length;
-		//print cookies
-		//console.log(cookies);
 	}
 	console.log('Number of cookies with AdBlockPlus: ', ckCounter2);
 	await driver.quit();
@@ -87,23 +75,20 @@ async function getCookiesWithAdBlockPlus() {
 // async function to track scripts with AdBlockPlus disabled
 async function trackScriptWithoutABP() {
 	let driver = await new Builder().forBrowser('chrome').build();
-	let counter = 0; // counter for number of ad scripts blocked
+	let counter = 0;
 
 	for (let i = 0; i < urlToTest.length; i++) {
 		await driver.get(urlToTest[i]);
-		await driver.sleep(1000); // wait for the page to load
+		await driver.sleep(1000);
 		let page = await driver.getPageSource();
 		let index = 0;
 		while (index < trackingScript.length) {
 			let regex = new RegExp(trackingScript[index]);
-			//console.log(regex);
 			if (regex.test(page)) {
-				//console.log('Tracking script found!', regex);
 				counter++;
 				index++;
 			} else {
 				index++;
-				//console.log('No tracking script found');
 			}
 		}
 	}
@@ -125,19 +110,16 @@ async function trackScriptWithABP() {
 
 	for (let i = 0; i < urlToTest.length; i++) {
 		await driver.get(urlToTest[i]);
-		await driver.sleep(1000); // wait for the page to load
+		await driver.sleep(1000);
 		let page = await driver.getPageSource();
 		let index = 0;
 		while (index < trackingScript.length) {
 			let regex = new RegExp(trackingScript[index]);
-			//console.log(regex);
 			if (regex.test(page)) {
-				//console.log('Tracking script found!', regex);
 				scrCounter++;
 				index++;
 			} else {
 				index++;
-				//console.log('No tracking script found');
 			}
 		}
 	}
@@ -147,7 +129,6 @@ async function trackScriptWithABP() {
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 async function main() {
-	//await crawler();
 	await getCookiesWithoutAdBlockPlus();
 	await sleep(5000);
 	await getCookiesWithAdBlockPlus();
