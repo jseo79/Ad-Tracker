@@ -22,3 +22,8 @@ I tested AdBlock Plus, but you can test other ad blockers by doing the following
 2. Editing the adBlockerExtensionPath variable in src/crawler.js to correspond to the new ad blocker
 
 Websites you want to test may also be changed by modifying urlsToTest in data/urls.json
+
+## Technologies Used
+- JavaScript
+- Node.js
+- Selenium
